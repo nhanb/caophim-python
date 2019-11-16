@@ -1,3 +1,0 @@
-molten
-gunicorn
-pytest

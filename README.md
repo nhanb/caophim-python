@@ -1,9 +1,10 @@
 ```sh
-mkpyenv 3.7.5
-actpyenv
-pip install -r requirements.txt
-# i know i know, it's just that Arch's poetry package broke
-# after the 3.8 upgrade. Gotta wait until it's fixed.
+pyenv virtualenv 3.7.5 caophim
+pyenv activate caophim
+poetry install
+
+# spin up postgres container
+docker-compose up -d
 
 make dev
 ```

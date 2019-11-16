@@ -1,2 +1,5 @@
 dev:
-	gunicorn --reload app:app
+	poetry run python manage.py runserver
+
+test:
+	poetry run python manage.py test

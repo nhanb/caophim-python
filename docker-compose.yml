@@ -1,0 +1,10 @@
+db:
+  image: postgres:11
+  environment:
+    POSTGRES_USER: caophim
+    POSTGRES_PASSWORD: password
+    POSTGRES_DB: caophim
+  ports:
+    - 5432:5432
+  volumes:
+    - ../pgdata:/var/lib/postgresql/data

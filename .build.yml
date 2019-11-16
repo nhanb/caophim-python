@@ -1,0 +1,24 @@
+image: debian/buster
+
+environment:
+  # Ugly hack to make `poetry` available in $PATH
+  PATH: /home/build/.local/bin:/usr/local/bin:/usr/bin:/bin:/usr/games
+
+packages:
+  - python3-all-dev
+  - python3-pip
+  - libpq-dev # for psycopg2
+  - pipx
+  - python3-venv # for pipx
+
+tasks:
+
+  - setup: |
+      echo "$PATH"
+      cd caophim
+      pipx install poetry
+      poetry install
+
+  - test: |
+      cd caophim
+      make test
