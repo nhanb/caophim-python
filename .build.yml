@@ -1,7 +1,8 @@
 image: debian/buster
 
 environment:
-  # Ugly hack to make `poetry` available in $PATH
+  # Ugly hack to prepend to PATH:
+  #   ~/.local/bin - for pipx installed `poetry`
   PATH: /home/build/.local/bin:/usr/local/bin:/usr/bin:/bin:/usr/games
 
 packages:
@@ -14,11 +15,13 @@ packages:
 tasks:
 
   - setup: |
-      echo "$PATH"
       cd caophim
       pipx install poetry
+      python3 -m venv ~/venv
+      source ~/venv/bin/activate
       poetry install
 
   - test: |
       cd caophim
-      make test
+      source ~/venv/bin/activate
+      manage test # `manage` is a script installed with the caophim package

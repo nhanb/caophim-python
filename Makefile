@@ -1,5 +1,5 @@
 dev:
-	poetry run python manage.py runserver
+	manage runserver
 
 test:
-	poetry run python manage.py test
+	manage test

@@ -4,6 +4,9 @@ version = "0.1.0"
 description = ""
 authors = ["Bùi Thành Nhân <hi@imnhan.com>"]
 
+[tool.poetry.scripts]
+manage = "caophim:manage"
+
 [tool.poetry.dependencies]
 python = "^3.7"
 django = "^3.0"
