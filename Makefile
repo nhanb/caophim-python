@@ -1,5 +1,12 @@
 dev:
 	manage runserver
 
-test:
-	manage test
+test: lint djangotest
+
+djangotest:
+	manage test  # `manage` is a script provided by the `caophim` package
+
+lint:
+	flake8
+	black --check .
+	isort --check-only --recursive .

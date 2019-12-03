@@ -24,4 +24,4 @@ tasks:
   - test: |
       cd caophim
       source ~/venv/bin/activate
-      manage test # `manage` is a script installed with the caophim package
+      make test
