@@ -1,6 +1,5 @@
 from django.db import IntegrityError
 from django.test import TransactionTestCase
-
 from main.models import Post
 
 
@@ -14,8 +13,8 @@ class PostTestCase(TransactionTestCase):
         reply = Post.objects.create(parent_thread=thread, comment="Cool")
         self.assertFalse(reply.is_thread)
 
-        self.assertEqual(Post.threads.all().get(), thread)
-        self.assertEqual(Post.replies.all().get(), reply)
+        self.assertEqual(Post.thread_objects.all().get(), thread)
+        self.assertEqual(Post.reply_objects.all().get(), reply)
 
         # Just confirming my check constraints are working as intended:
 

@@ -30,13 +30,13 @@ class Post(Model):
     subject = CharField(max_length=250, blank=True)
     comment = TextField(max_length=2500)
     parent_thread = ForeignKey(
-        "self", on_delete=CASCADE, null=True, blank=True, related_name="reply_set"
+        "self", on_delete=CASCADE, null=True, blank=True, related_name="replies"
     )
     created_at = DateTimeField(auto_now_add=True)
 
     objects = Manager()
-    threads = ThreadManager()
-    replies = ReplyManager()
+    thread_objects = ThreadManager()
+    reply_objects = ReplyManager()
 
     class Meta:
         db_table = "post"
