@@ -3,6 +3,10 @@ name = "caophim"
 version = "0.1.0"
 description = ""
 authors = ["Bùi Thành Nhân <hi@imnhan.com>"]
+packages = [
+    { include = "caophim" },
+    { include = "main" },
+]
 
 [tool.poetry.scripts]
 manage = "caophim:manage"
