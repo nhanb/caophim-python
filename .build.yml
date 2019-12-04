@@ -12,14 +12,26 @@ packages:
   - pipx
   - python3-venv # for pipx
 
+    # for testing against actual db server:
+  - postgresql
+  - postgresql-client
+
 tasks:
 
-  - setup: |
+  - setup-packages: |
       cd caophim
       pipx install poetry
       python3 -m venv ~/venv
       source ~/venv/bin/activate
       poetry install
+
+  - setup-db: |
+      sudo pg_ctlcluster 11 main start
+      sudo useradd caophim
+      # raw sql here because the createuser cli doesn't allow non-interactively
+      # assigned password:
+      sudo -u postgres psql -c "create user caophim with password 'password' createdb;"
+      sudo -u postgres createdb -O caophim caophim
 
   - test: |
       cd caophim
