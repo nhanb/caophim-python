@@ -1,10 +1,13 @@
 """Django's command-line utility for administrative tasks."""
 import os
-import sys
+
+from caophim.conf import config
 
 
 def manage():
     os.environ.setdefault("DJANGO_SETTINGS_MODULE", "caophim.settings")
-    from django.core.management import execute_from_command_line
+    config.django_manage()
 
-    execute_from_command_line(sys.argv)
+
+def generate_config():
+    print(config.generate_json(DEBUG=True))

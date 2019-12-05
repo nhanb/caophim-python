@@ -10,12 +10,14 @@ packages = [
 
 [tool.poetry.scripts]
 manage = "caophim:manage"
+generate-config = "caophim:generate_config"
 
 [tool.poetry.dependencies]
 python = "^3.7"
 django = "^3.0"
 psycopg2 = "^2.8"
 gunicorn = "^20.0"
+goodconf = "^1.0"
 
 [tool.poetry.dev-dependencies]
 isort = "^4.3"
