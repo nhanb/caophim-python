@@ -5,12 +5,12 @@ description = ""
 authors = ["Bùi Thành Nhân <hi@imnhan.com>"]
 packages = [
     { include = "caophim", from = "src" },
-    { include = "main", from = "src" },
+    { include = "caoweb", from = "src" },
 ]
 
 [tool.poetry.scripts]
-manage = "caophim:manage"
-generate-config = "caophim:generate_config"
+caophim-manage = "caophim:manage"
+caophim-generate-config = "caophim:generate_config"
 
 [tool.poetry.dependencies]
 python = "^3.7"

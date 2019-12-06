@@ -33,7 +33,7 @@ class Migration(migrations.Migration):
                         null=True,
                         on_delete=django.db.models.deletion.CASCADE,
                         related_name="replies",
-                        to="main.Post",
+                        to="caoweb.Post",
                     ),
                 ),
             ],

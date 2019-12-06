@@ -36,5 +36,5 @@ tasks:
   - test: |
       cd caophim
       source ~/venv/bin/activate
-      generate-config > caophim.conf.json
+      make localconfig
       make test

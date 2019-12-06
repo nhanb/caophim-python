@@ -1,10 +1,13 @@
 dev:
-	manage runserver
+	caophim-manage runserver
 
 test: lint djangotest
 
 djangotest:
-	manage test  # `manage` is a script provided by the `caophim` package
+	caophim-manage test
+
+shell:
+	caophim-manage shell
 
 lint:
 	flake8
@@ -12,4 +15,9 @@ lint:
 	isort --check-only --recursive .
 
 localconfig:
-	generate-config > caophim.conf.json
+	caophim-generate-config > caophim.conf.json
+
+clean:
+	rm -r dist
+	rm -r src/caophim.egg-info
+	rm caophim.conf.json
