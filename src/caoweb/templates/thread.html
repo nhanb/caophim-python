@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block title %}{{ thread.subject }}{% endblock %}
+
+{% block content %}
+
+<h3 class="thread-header">{{ thread.subject }}</h3>
+<p>{{ thread.comment }}</p>
+
+<ul>
+  {% for reply in replies %}
+    <p>
+    <a href="#p{{ reply.id }}" id="p{{ reply.id }}">{{ reply.id }}</a>
+    {{ reply.comment }}
+    </p>
+  {% endfor %}
+</ul>
+
+<hr>
+{% include "includes/create_reply_form.html" %}
+
+{% endblock %}

@@ -1,14 +1,14 @@
 # Caophim
 
-Is yet another (WIP) attempt at a futaba-style (e.g. 4chan) image board, using
+[![builds.sr.ht status](https://builds.sr.ht/~nhanb/caophim/.build.yml.svg)](https://builds.sr.ht/~nhanb/caophim/.build.yml?)
+
+Is yet another (WIP) attempt at a futaba-style (e.g. 4chan) imageboard, using
 django + postgres.
 
 Goals:
 
 - Replicate the minimalistic UI and UX. Should take advantage of modern browser
-  features, using javascript when and only when necessary but don't fuck over
-  people who disable javascript (back in the saner days we called it graceful
-  degradation).
+  features, using javascript when and only when necessary.
 
 - Simplest backend setup that works, but no simpler.
   A webmaster's installation runlist should be as simple as:

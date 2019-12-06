@@ -11,6 +11,7 @@ packages = [
 [tool.poetry.scripts]
 caophim-manage = "caophim:manage"
 caophim-generate-config = "caophim:generate_config"
+caophim-generate-psql-envars = "caophim:generate_psql_envars"
 
 [tool.poetry.dependencies]
 python = "^3.7"

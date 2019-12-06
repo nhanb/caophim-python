@@ -1,0 +1,35 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>{% block title %}{% endblock %} | cào phím beta</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="{% static "caoweb/css/reset.css" %}">
+    <link rel="stylesheet" href="{% static "caoweb/css/base.css" %}">
+    {% block head %}{% endblock %}
+  </head>
+  <body>
+    <nav class="nav">
+      <a href="/">tất cả</a>
+      {% for board in boards %}
+      <a href="{% url 'board' board.id %}" title="{{ board.name }}">
+        /{{ board.id }}/
+      </a>
+      {% endfor %}
+    </nav>
+
+    <hr>
+
+    <h2 class="board-name">{{ title }}</h2>
+    <p>{{ subtitle }}</p>
+
+    {% if create_thread_form %}
+    <br>
+    {% include "includes/create_thread_form.html" %}
+    {% endif %}
+
+    <hr>
+
+    {% block content %}{% endblock %}
+  </body>
+</html>

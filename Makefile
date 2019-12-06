@@ -21,3 +21,10 @@ clean:
 	rm -r dist
 	rm -r src/caophim.egg-info
 	rm caophim.conf.json
+
+startdb:
+	docker-compose up -d
+
+destroydb:
+	docker-compose down
+	sudo rm -rf ../pgdata
