@@ -1,0 +1,57 @@
+image: debian/buster
+
+secrets:
+  - 00fb0c73-2b1d-4bbf-96ee-30e2d04576bf
+
+environment:
+  # Ugly hack to prepend to PATH:
+  #   ~/.local/bin - for pipx installed `poetry`
+  PATH: /home/build/.local/bin:/usr/local/bin:/usr/bin:/bin:/usr/games
+
+packages:
+  - python3-all-dev
+  - python3-pip
+  - libpq-dev # for psycopg2
+  - pipx
+  - python3-venv # for pipx
+
+    # for testing against actual db server:
+  - postgresql
+  - postgresql-client
+
+tasks:
+  - check-branch: |
+      cd caophim
+      if [ "$(git rev-parse master)" != "$(git rev-parse HEAD)" ]; then
+          echo "Not master. Aborting."
+          complete-build;
+      fi
+
+  - mirror-to-github: |
+      cd ~/caophim
+      mkdir -p ~/.ssh
+      echo -e "\nHost github.com\n  IdentityFile /home/build/.ssh/00fb0c73-2b1d-4bbf-96ee-30e2d04576bf\n  IdentitiesOnly yes\n  BatchMode yes" >> ~/.ssh/config
+      echo "github.com ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEAq2A7hRGmdnm9tUDbO9IDSwBK6TbQa+PXYPCPy6rbTrTtw7PHkccKrpp0yVhp5HdEIcKr6pLlVDBfOLX9QUsyCOV0wzfjIJNlGEYsdlLJizHhbn2mUjvSAHQqZETYP81eFzLQNnPHt4EVVUh7VfDESU84KezmD5QlWpXLmvU31/yMf+Se8xhHTvKSCZIFImWwoG6mbUoWf9nzpIoaSjB+weqqUUmpaaasXVal72J+UX2B+2RPW3RcT0eOzQgqlJL3RKrTJvdsjE3JEAvGq3lGHSZXy28G3skua2SmVi/w4yCE6gbODqnTWlg7+wC604ydGXA8VJiS5ap43JXiUFFAaQ==" >> ~/.ssh/known_hosts
+      git remote add github git@github.com:nhanb/caophim.git
+      git push -f github '*:*' --prune --follow-tags
+
+  - setup-packages: |
+      cd caophim
+      pipx install poetry
+      python3 -m venv ~/venv
+      source ~/venv/bin/activate
+      poetry install
+
+  - setup-db: |
+      sudo pg_ctlcluster 11 main start
+      sudo useradd caophim
+      # raw sql here because the createuser cli doesn't allow non-interactively
+      # assigned password:
+      sudo -u postgres psql -c "create user caophim with password 'password' createdb;"
+      sudo -u postgres createdb -O caophim caophim
+
+  - test: |
+      cd caophim
+      source ~/venv/bin/activate
+      make localconfig
+      make test

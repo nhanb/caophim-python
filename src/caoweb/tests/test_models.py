@@ -1,3 +1,4 @@
+from django.core.files.uploadedfile import SimpleUploadedFile
 from django.db import IntegrityError
 from django.test import TransactionTestCase
 
@@ -10,10 +11,15 @@ class PostTestCase(TransactionTestCase):
 
         board = Board.objects.create(id="4.0", name="Công nghệ", description="Ehhhhhh")
 
-        thread = Post.create_thread(board.id, "Hey", "Monica")
+        thread = Post.objects.create(
+            board=board,
+            subject="subject",
+            comment="and comment",
+            pic=SimpleUploadedFile("pic.png", b""),
+        )
         self.assertTrue(thread.is_thread)
 
-        reply = Post.create_reply(thread.id, "Cool")
+        reply = Post.objects.create(parent_thread=thread, comment="comment only")
         self.assertFalse(reply.is_thread)
 
         self.assertEqual(Post.thread_objects.all().get(), thread)

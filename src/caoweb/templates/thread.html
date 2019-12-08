@@ -4,19 +4,35 @@
 
 {% block content %}
 
-<h3 class="thread-header">{{ thread.subject }}</h3>
-<p>{{ thread.comment }}</p>
+<div class="post">
+  <h3 class="thread-header">{{ thread.subject }}</h3>
+  {% if thread.pic %}
+  <a class="pic-container" href="{{ thread.pic_public_url }}">
+    <img class="pic" src={{ thread.pic_public_url }} />
+  </a>
+  <p>{{ thread.comment }}</p>
+  {% endif %}
+</div>
 
 <ul>
   {% for reply in replies %}
-    <p>
+  <p class="post">
+    <a class="pic-container" href="{{ reply.pic_public_url }}"><img class="pic" src="{{ reply.pic_public_url }}" /></a>
     <a href="#p{{ reply.id }}" id="p{{ reply.id }}">{{ reply.id }}</a>
     {{ reply.comment }}
-    </p>
+  </p>
   {% endfor %}
 </ul>
 
-<hr>
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+
+<hr id="bottom">
 {% include "includes/create_reply_form.html" %}
 
 {% endblock %}

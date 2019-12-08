@@ -121,3 +121,12 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = "/static/"
+
+# TODO: I really should support simple plain filesystem storage backend too.
+# Forcing people to set up S3(-compatible) storage as well ain't nice.
+DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
+AWS_ACCESS_KEY_ID = config.AWS_ACCESS_KEY_ID
+AWS_SECRET_ACCESS_KEY = config.AWS_SECRET_ACCESS_KEY
+AWS_STORAGE_BUCKET_NAME = config.AWS_STORAGE_BUCKET_NAME
+AWS_S3_ENDPOINT_URL = config.AWS_S3_ENDPOINT_URL or None
+AWS_DEFAULT_ACL = None  # use bucket's default policy

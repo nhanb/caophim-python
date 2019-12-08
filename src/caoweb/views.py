@@ -1,4 +1,6 @@
+from django.contrib import messages
 from django.db.models import Max
+from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, redirect, render
 from django.views.decorators.http import require_GET, require_POST
 
@@ -62,23 +64,23 @@ def thread_view(request, board_id, thread_id):
 
 @require_POST
 def create_thread_view(request, board_id):
-    form = CreateThreadForm(request.POST)
+    form = CreateThreadForm(request.POST, request.FILES)
 
     if not form.is_valid():
-        return redirect("board", board_id=board_id)
+        messages.add_message(request, messages.ERROR, form.errors)
+        return HttpResponseRedirect(request.META.get("HTTP_REFERER"))
 
-    data = form.cleaned_data
-    thread = Post.create_thread(data["board"].id, data["subject"], data["comment"])
+    thread = form.save()
     return redirect("thread", board_id=board_id, thread_id=thread.id)
 
 
 @require_POST
 def create_reply_view(request, board_id, thread_id):
-    form = CreateReplyForm(request.POST)
+    form = CreateReplyForm(request.POST, request.FILES)
 
     if not form.is_valid():
-        return redirect("thread", board_id=board_id, thread_id=thread_id)
+        messages.add_message(request, messages.ERROR, form.errors)
+        return HttpResponseRedirect(request.META.get("HTTP_REFERER"))
 
-    data = form.cleaned_data
-    reply = Post.create_reply(data["parent_thread"].id, data["comment"])
+    reply = form.save()
     return redirect(reply)

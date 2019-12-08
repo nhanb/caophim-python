@@ -1,6 +1,6 @@
 # Caophim
 
-[![builds.sr.ht status](https://builds.sr.ht/~nhanb/caophim/.build.yml.svg)](https://builds.sr.ht/~nhanb/caophim/.build.yml?)
+[![builds.sr.ht status](https://builds.sr.ht/~nhanb/caophim/debian-master.yml.svg)](https://builds.sr.ht/~nhanb/caophim/debian-master.yml?)
 
 Is yet another (WIP) attempt at a futaba-style (e.g. 4chan) imageboard, using
 django + postgres.

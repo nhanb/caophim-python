@@ -1,7 +1,9 @@
 <details class="collapsible-form">
   <summary>trả lời</summary>
 
-  <form action="{% url "create-reply" board_id thread.id %}" method="post">
+  <form enctype="multipart/form-data"
+        action="{% url "create-reply" board_id thread.id %}"
+        method="post">
     {% csrf_token %}
     {{ create_reply_form.as_p }}
     <input type="submit" value="Submit" />

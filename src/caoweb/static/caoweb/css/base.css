@@ -66,3 +66,19 @@ hr {
   margin-top: 20px;
   margin-bottom: 10px;
 }
+
+.post {
+  background-color: var(--bg-color-dark);
+  padding: 10px;
+  margin: 0 0 10px 0;
+}
+
+img.pic {
+  max-width: 300px;
+  max-height: 200px;
+  vertical-align: top;
+}
+
+a.pic-container:hover {
+  background: none;
+}

@@ -4,7 +4,7 @@ dev:
 test: lint djangotest
 
 djangotest:
-	caophim-manage test
+	caophim-manage test --settings=caophim.test_settings
 
 shell:
 	caophim-manage shell
@@ -18,9 +18,9 @@ localconfig:
 	caophim-generate-config > caophim.conf.json
 
 clean:
-	rm -r dist
-	rm -r src/caophim.egg-info
-	rm caophim.conf.json
+	rm -rf dist
+	rm -rf src/caophim.egg-info
+	rm -rf test_media
 
 startdb:
 	docker-compose up -d

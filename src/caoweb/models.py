@@ -1,11 +1,16 @@
+import ulid
+from django.conf import settings
 from django.db.models import (
     CASCADE,
     CharField,
     DateTimeField,
     ForeignKey,
+    ImageField,
     Manager,
     Model,
+    PositiveIntegerField,
     Q,
+    SlugField,
     TextField,
 )
 from django.db.models.constraints import CheckConstraint
@@ -13,10 +18,9 @@ from django.urls import reverse
 
 
 class Board(Model):
-    id = CharField(max_length=10, primary_key=True)
+    id = SlugField(max_length=10, primary_key=True)
     name = CharField(max_length=50)
     description = TextField(max_length=2500)
-    created_at = DateTimeField(auto_now_add=True)
 
     class Meta:
         db_table = "board"
@@ -38,6 +42,10 @@ class ReplyManager(Manager):
         return super().get_queryset().filter(parent_thread__isnull=False)
 
 
+def _upload_to(instance, filename):
+    return f"pics/{str(ulid.new()).lower()}/{filename}"
+
+
 class Post(Model):
     """
     A Post can either be a Thread or Reply.
@@ -54,7 +62,7 @@ class Post(Model):
     """
 
     subject = CharField(max_length=250, blank=True)
-    comment = TextField(max_length=2500)
+    comment = TextField(max_length=2500, blank=True)
     parent_thread = ForeignKey(
         "self", on_delete=CASCADE, null=True, blank=True, related_name="replies"
     )
@@ -62,6 +70,26 @@ class Post(Model):
         Board, on_delete=CASCADE, related_name="threads", null=True, blank=True
     )
     created_at = DateTimeField(auto_now_add=True)
+
+    # Of course there's pic and thumbnail
+    pic = ImageField(
+        upload_to=_upload_to,
+        height_field="pic_height",
+        width_field="pic_width",
+        null=True,
+        blank=True,
+    )
+    pic_height = PositiveIntegerField(null=True)
+    pic_width = PositiveIntegerField(null=True)
+    thumbnail = ImageField(
+        upload_to="thumbnails/",
+        height_field="thumbnail_height",
+        width_field="thumbnail_width",
+        null=True,
+        blank=True,
+    )
+    thumbnail_height = PositiveIntegerField(null=True)
+    thumbnail_width = PositiveIntegerField(null=True)
 
     objects = Manager()
     thread_objects = ThreadManager()
@@ -84,19 +112,28 @@ class Post(Model):
                     | Q(parent_thread__isnull=False, board__isnull=True)
                 ),
             ),
+            CheckConstraint(
+                name="has_pic_if_is_thread",
+                check=(
+                    Q(parent_thread__isnull=True, pic__isnull=False)
+                    | Q(parent_thread__isnull=False)
+                ),
+            ),
         ]
-
-    @classmethod
-    def create_thread(cls, board_id, subject, comment):
-        return cls.objects.create(board_id=board_id, subject=subject, comment=comment)
-
-    @classmethod
-    def create_reply(cls, thread_id, comment):
-        return cls.objects.create(parent_thread_id=thread_id, comment=comment)
 
     @property
     def is_thread(self):
         return self.parent_thread is None
+
+    @property
+    def pic_public_url(self):
+        # BIIIIG assumption that I name each env's bucket after their domain name.
+        # TODO make this support plain old FileSystemStorage backend.
+        return (
+            f"https://{settings.AWS_STORAGE_BUCKET_NAME}/{self.pic.name}"
+            if self.pic
+            else ""
+        )
 
     def __str__(self):
         if self.is_thread:
