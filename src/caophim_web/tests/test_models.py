@@ -2,7 +2,7 @@ from django.core.files.uploadedfile import SimpleUploadedFile
 from django.db import IntegrityError
 from django.test import TransactionTestCase
 
-from caoweb.models import Board, Post
+from caophim_web.models import Board, Post
 
 
 class PostTestCase(TransactionTestCase):

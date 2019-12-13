@@ -1,4 +1,4 @@
-from caoweb.models import Board
+from .models import Board
 
 
 def get_boards(request, cache={}):

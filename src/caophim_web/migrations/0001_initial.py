@@ -3,7 +3,7 @@
 import django.db.models.deletion
 from django.db import migrations, models
 
-import caoweb.models
+import caophim_web.models
 
 
 class Migration(migrations.Migration):
@@ -46,7 +46,7 @@ class Migration(migrations.Migration):
                         blank=True,
                         height_field="pic_height",
                         null=True,
-                        upload_to=caoweb.models._upload_to,
+                        upload_to=caophim_web.models._upload_to,
                         width_field="pic_width",
                     ),
                 ),
@@ -71,7 +71,7 @@ class Migration(migrations.Migration):
                         null=True,
                         on_delete=django.db.models.deletion.CASCADE,
                         related_name="threads",
-                        to="caoweb.Board",
+                        to="caophim_web.Board",
                     ),
                 ),
                 (
@@ -81,7 +81,7 @@ class Migration(migrations.Migration):
                         null=True,
                         on_delete=django.db.models.deletion.CASCADE,
                         related_name="replies",
-                        to="caoweb.Post",
+                        to="caophim_web.Post",
                     ),
                 ),
             ],

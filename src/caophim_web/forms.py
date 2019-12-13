@@ -1,6 +1,6 @@
 from django.forms import ModelForm, ValidationError
 
-from caoweb.models import Post
+from .models import Post
 
 
 class RequiredFieldsModelForm(ModelForm):

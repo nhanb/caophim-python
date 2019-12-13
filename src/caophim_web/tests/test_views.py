@@ -1,7 +1,7 @@
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.test import TestCase
 
-from caoweb.models import Board, Post
+from caophim_web.models import Board, Post
 
 
 class BoardViewTestCase(TestCase):

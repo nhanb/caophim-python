@@ -4,8 +4,8 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, redirect, render
 from django.views.decorators.http import require_GET, require_POST
 
-from caoweb.forms import CreateReplyForm, CreateThreadForm
-from caoweb.models import Board, Post
+from .forms import CreateReplyForm, CreateThreadForm
+from .models import Board, Post
 
 
 @require_GET

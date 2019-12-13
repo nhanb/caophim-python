@@ -5,7 +5,7 @@ description = ""
 authors = ["Bùi Thành Nhân <hi@imnhan.com>"]
 packages = [
     { include = "caophim", from = "src" },
-    { include = "caoweb", from = "src" },
+    { include = "caophim_web", from = "src" },
 ]
 
 [tool.poetry.scripts]

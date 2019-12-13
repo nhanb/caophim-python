@@ -1,6 +1,6 @@
 [
   {
-    "model": "caoweb.board",
+    "model": "caophim_web.board",
     "pk": "cn",
     "fields": {
       "name": "công nghệ",
@@ -8,7 +8,7 @@
     }
   },
   {
-    "model": "caoweb.board",
+    "model": "caophim_web.board",
     "pk": "dt",
     "fields": {
       "name": "điểm tin",
@@ -16,7 +16,7 @@
     }
   },
   {
-    "model": "caoweb.board",
+    "model": "caophim_web.board",
     "pk": "gaymen",
     "fields": {
       "name": "vidya gaems",
@@ -24,7 +24,7 @@
     }
   },
   {
-    "model": "caoweb.board",
+    "model": "caophim_web.board",
     "pk": "wc",
     "fields": {
       "name": "weeb central",

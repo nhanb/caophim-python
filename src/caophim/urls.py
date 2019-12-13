@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.urls import path
 
-from caoweb import views
+from caophim_web import views
 
 urlpatterns = [
     path("admin/", admin.site.urls),
