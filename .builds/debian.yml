@@ -20,6 +20,13 @@ packages:
   - postgresql-client
 
 tasks:
+  - check-branch: |
+      cd caophim
+      if [ "$(git rev-parse master)" == "$(git rev-parse HEAD)" ]; then
+          echo "Is master. Aborting."
+          complete-build;
+      fi
+
   - mirror-to-github: |
       cd ~/caophim
       mkdir -p ~/.ssh

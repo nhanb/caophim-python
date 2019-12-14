@@ -8,11 +8,7 @@
 {% if threads %}
   <h3 class="threads-counter">có {{ threads | length }} bài:</h3>
   {% for thread in threads %}
-  <div>
-    <a href="{% url "thread" thread.board_id thread.id %}">
-      {{ thread.subject }}
-    </a>
-  <div>
+    {% include "includes/post.html" with post=thread %}
   {% endfor %}
 {% else%}
   <h3 class="threads-counter">chưa có bài.</h3>

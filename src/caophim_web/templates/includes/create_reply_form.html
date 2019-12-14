@@ -1,12 +1,11 @@
-<details class="collapsible-form">
+<details class="collapsible-form" open="true">
   <summary>trả lời</summary>
 
   <form enctype="multipart/form-data"
         action="{% url "create-reply" board_id thread.id %}"
         method="post">
-    {% csrf_token %}
-    {{ create_reply_form.as_p }}
-    <input type="submit" value="Submit" />
+    {% include "includes/form.html" with form=create_reply_form %}
   </form>
 
 </details>
+

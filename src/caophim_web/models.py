@@ -61,7 +61,7 @@ class Post(Model):
     (if someone finds a cleaner way to model this in Django, I'm all ears tbh)
     """
 
-    subject = CharField(max_length=250, blank=True)
+    subject = CharField(max_length=100, blank=True)
     comment = TextField(max_length=2500, blank=True)
     parent_thread = ForeignKey(
         "self", on_delete=CASCADE, null=True, blank=True, related_name="replies"
@@ -143,9 +143,10 @@ class Post(Model):
 
     def get_absolute_url(self):
         if self.is_thread:
-            return reverse(
+            thread_url = reverse(
                 "thread", kwargs={"board_id": self.board_id, "thread_id": self.id}
             )
+            return f"{thread_url}#p{self.id}"
         else:
             thread = self.parent_thread
             thread_url = reverse(

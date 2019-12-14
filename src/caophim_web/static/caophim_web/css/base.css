@@ -3,9 +3,12 @@
   --bg-color-light: #eef2ff;
   --grey: #666;
   --light-grey: #bdbdbd;
+  --lighter-grey: #ccc;
   --blue: #253693;
   --light-blue: #44529d;
   --red: #ca0000;
+
+  --block-padding: 10px;
 }
 
 body {
@@ -19,6 +22,7 @@ body {
   min-height: 100vh;
   padding: 7px 10px;
   box-sizing: border-box;
+  font-size: 90%;
 }
 
 a {
@@ -40,6 +44,16 @@ hr {
   cursor: pointer;
   font-style: italic;
   color: var(--blue);
+  padding: var(--block-padding);
+}
+
+.collapsible-form {
+  background-color: seashell;
+}
+
+.collapsible-form form {
+  background-color: seashell;
+  padding: var(--block-padding);
 }
 
 .nav a {
@@ -61,7 +75,7 @@ hr {
   margin-bottom: 10px;
 }
 
-.thread-header {
+.post-subject {
   font-weight: bold;
   margin-top: 20px;
   margin-bottom: 10px;
@@ -69,16 +83,69 @@ hr {
 
 .post {
   background-color: var(--bg-color-dark);
-  padding: 10px;
+  padding: var(--block-padding);
   margin: 0 0 10px 0;
 }
 
+.post p {
+  max-width: 750px;
+}
+
+.post-metadata {
+  margin-bottom: 10px;
+  color: var(--grey);
+  font-style: italic;
+}
+
 img.pic {
-  max-width: 300px;
-  max-height: 200px;
+  width: 100%;
+  max-width: 250px;
   vertical-align: top;
+  margin-bottom: 0.5em;
 }
 
 a.pic-container:hover {
   background: none;
+}
+
+form {
+  display: grid;
+  /*grid-template-columns: 90px 1fr;*/
+  grid-auto-columns: min-content auto;
+  grid-gap: 10px;
+}
+
+form input[type="submit"] {
+  grid-column: 2/2;
+  margin-top: 1em;
+  max-width: 300px;
+}
+
+label {
+  text-align: right;
+}
+
+input[type="file"] {
+  border: 1px dashed var(--light-grey);
+  padding: 5px;
+  cursor: pointer;
+}
+
+input[type="text"],
+textarea {
+  padding: 5px;
+  font-family: inherit;
+  font-size: inherit;
+  border: 1px solid var(--lighter-grey);
+}
+
+input[type="file"]:focus,
+input[type="text"]:focus,
+textarea:focus {
+  border: 1px solid #5db3fd;
+}
+
+textarea {
+  box-sizing: border-box;
+  width: 100%;
 }

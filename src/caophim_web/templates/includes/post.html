@@ -1,0 +1,19 @@
+<div class="post">
+  <div class="post-metadata">
+    <a href="{{ post.get_absolute_url }}" id="p{{ post.id }}">
+      >>{{ post.id }}</a>
+    viết ngày {{ post.created_at }}
+  </div>
+
+  {% if post.pic %}
+  <a class="pic-container" href="{{ post.pic_public_url }}">
+    <img class="pic" src={{ post.pic_public_url }} />
+  </a>
+  {% endif %}
+
+  {% if post.subject %}
+    <h3 class="post-subject">{{ post.subject }}</h3>
+  {% endif %}
+
+  <p>{{ post.comment }}</p>
+</div>

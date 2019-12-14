@@ -4,9 +4,7 @@
   <form enctype="multipart/form-data"
         action="{% url "create-thread" board_id %}"
         method="post">
-    {% csrf_token %}
-    {{ create_thread_form.as_p }}
-    <input type="submit" value="Submit" />
+    {% include "includes/form.html" with form=create_thread_form %}
   </form>
 
 </details>

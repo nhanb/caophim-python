@@ -1,4 +1,4 @@
-from django.forms import ModelForm, ValidationError
+from django.forms import HiddenInput, ModelForm, Textarea, ValidationError
 
 from .models import Post
 
@@ -18,6 +18,10 @@ class CreateThreadForm(RequiredFieldsModelForm):
         model = Post
         fields = ("board", "subject", "comment", "pic")
         required_fields = ("board", "pic")
+        widgets = {
+            "board": HiddenInput(),
+            "comment": Textarea(attrs={"rows": 4}),
+        }
 
     def clean(self):
         cleaned_data = super().clean()
@@ -30,6 +34,10 @@ class CreateReplyForm(RequiredFieldsModelForm):
         model = Post
         fields = ("parent_thread", "comment", "pic")
         required_fields = ("parent_thread",)
+        widgets = {
+            "parent_thread": HiddenInput(),
+            "comment": Textarea(attrs={"rows": 4}),
+        }
 
     def clean(self):
         cleaned_data = super().clean()

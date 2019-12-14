@@ -68,6 +68,7 @@ def create_thread_view(request, board_id):
 
     if not form.is_valid():
         messages.add_message(request, messages.ERROR, form.errors)
+        print(f"XXX {form.errors}")
         return HttpResponseRedirect(request.META.get("HTTP_REFERER"))
 
     thread = form.save()
@@ -80,6 +81,7 @@ def create_reply_view(request, board_id, thread_id):
 
     if not form.is_valid():
         messages.add_message(request, messages.ERROR, form.errors)
+        print(f"XXX {form.errors}")
         return HttpResponseRedirect(request.META.get("HTTP_REFERER"))
 
     reply = form.save()
